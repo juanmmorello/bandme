@@ -8,10 +8,10 @@
 		<version>2.2.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>tech.juanmamorello</groupId>
-	<artifactId>stock</artifactId>
+	<groupId>io.bandme</groupId>
+	<artifactId>backend-webops</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>stock</name>
+	<name>bandme-webops</name>
 	<description>En el mundo de los ciegos, el tuerto es rey</description>
 
 	<properties>
@@ -52,6 +52,11 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.197</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
