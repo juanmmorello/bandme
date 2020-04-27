@@ -8,6 +8,7 @@ import io.braulio.bandme.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -30,6 +31,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerUser(UserRegistrationRequestDto userRegistrationRequestDto) {
 
+        Assert.isTrue(isEmailAvailableForUsage(userRegistrationRequestDto.getEmail()), "The email is being used by another user");
+
         User user = User.builder()
                 .id(null)
                 .name(userRegistrationRequestDto.getName())
@@ -39,5 +42,9 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         return userRepository.save(user);
+    }
+
+    private Boolean isEmailAvailableForUsage(String email){
+        return userRepository.findByEmail(email).isEmpty();
     }
 }

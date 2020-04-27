@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class UserServiceTests extends ApplicationTests {
 
@@ -23,6 +24,17 @@ public class UserServiceTests extends ApplicationTests {
 
         // Test case assertions
         assertThat(requestDto.getName()).isEqualTo(newUser.getName());
+    }
+
+    @Test
+    public void registerUser_withExistingUserDetails_returnPersistedEntity() {
+        UserRegistrationRequestDto originalUserDto = userRegistrationWithRoleUser();
+        UserRegistrationRequestDto newUserWithSameDetailsDto = userRegistrationWithRoleUser();
+
+        userService.registerUser(originalUserDto);
+        assertThatThrownBy(() -> userService.registerUser(newUserWithSameDetailsDto))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("The email is being used by another user");
     }
 
     private UserRegistrationRequestDto userRegistrationWithRoleUser() {
