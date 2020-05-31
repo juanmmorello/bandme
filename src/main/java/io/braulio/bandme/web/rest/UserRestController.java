@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -53,5 +54,10 @@ public class UserRestController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
+    }
+
+    @GetMapping("/auth/signin/google")
+    public ResponseEntity googleSignIn(String token){
+        throw new NoSuchElementException();
     }
 }
